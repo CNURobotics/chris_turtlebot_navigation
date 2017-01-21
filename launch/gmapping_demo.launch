@@ -1,0 +1,35 @@
+<launch>
+
+  <arg name="robot_namespace"   default="turtlebot"/> <!-- robot's name used by plugin to publish topics -->
+  <arg name="base_prefix"       default="mobile_base" />
+
+  <arg name="custom_param_file" default="$(find chris_turtlebot_navigation)/param/dummy.yaml"/>
+  <arg name="scan_topic"        default="hokuyo_node/scan"/>
+  <arg name="odom_frame"        default="odom"/>
+  <arg name="base_frame"        default="base_footprint"/>
+  <arg name="map_frame"         default="map"/><!--$(arg robot_namespace)_tf/map"/-->
+
+  <!-- make sure our tf_prefix is set in case this is launched first -->
+  <group ns="$(arg robot_namespace)">
+    <param name="tf_prefix"       value="$(arg robot_namespace)_tf"/>
+  </group>
+
+  <!-- mapping -->
+  <include file="$(find chris_turtlebot_navigation)/launch/includes/gmapping.launch.xml">
+    <arg name="robot_namespace"  value="$(arg robot_namespace)"/>
+    <arg name="scan_topic"       value="$(arg scan_topic)"/>
+    <arg name="odom_frame"       value="$(arg odom_frame)"/>
+    <arg name="base_frame"       value="$(arg base_frame)"/>
+    <arg name="map_frame"        value="$(arg map_frame)"/>
+  </include>
+
+  <!-- Planning and control -->
+  <include file="$(find chris_turtlebot_navigation)/launch/includes/move_base.launch.xml">
+    <arg name="robot_namespace"   value="$(arg robot_namespace)"/>
+    <arg name="base_prefix"       value="$(arg base_prefix)" />
+    <arg name="custom_param_file" value="$(arg custom_param_file)"/>
+    <arg name="laser_topic"       value="$(arg scan_topic)" />
+  </include>
+
+
+</launch>

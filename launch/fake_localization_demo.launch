@@ -1,0 +1,30 @@
+<launch>
+  <arg name="robot_namespace"           default="turtlebot"/> <!-- robot's name used by plugin to publish topics -->
+  <arg name="base_prefix"               default="mobile_base" />
+  <arg name="include_fake_localization" default="true"/>  <!-- assuming NOT included in gazebo launch (disable if using with multirobot that launches fake localization -->
+  <arg name="include_map_server"        default="true"/>
+
+  <arg name="custom_param_file"         default="$(find chris_turtlebot_navigation)/param/dummy.yaml"/>
+  <arg name="map_file"                  default="$(optenv CHRIS_MAP_FILE)"/>
+
+  <arg name="scan_topic"                default="hokuyo_node/scan"/>
+
+  <!-- Map server -->
+  <group if="$(arg include_map_server)" ns="$(arg robot_namespace)">
+    <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" >
+       <param name="frame_id" value="$(arg robot_namespace)_tf/map"/>
+    </node>
+  </group>
+
+  <!-- Localization - if not included by another launch -->
+  <group if="$(arg include_fake_localization)">
+    <include file="$(find chris_turtlebot_bringup)/launch/chris_fake_localization.launch">
+        <arg name="robot_namespace"    value="$(arg robot_namespace)"/>
+        <arg name="ground_truth_odom"  value="$(arg base_prefix)/ground_truth"/>
+    </include>
+
+    <!--  Transform map frame back to a common world frame -->
+    <node pkg="tf2_ros" ns="$(arg robot_namespace)" type="static_transform_publisher" name="dummy_localization" args="0.0 0.0 0. 0. 0. 0. 1. /world $(arg robot_namespace)_tf/map" />
+  </group>
+
+</launch>

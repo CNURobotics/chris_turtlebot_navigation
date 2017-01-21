@@ -1,0 +1,17 @@
+<launch>
+  <arg name="robot_namespace"   default="turtlebot"/> <!-- robot's name used by plugin to publish topics -->
+  <arg name="base_prefix"       default="mobile_base" />
+
+  <arg name="custom_param_file" default="$(find chris_turtlebot_navigation)/param/dummy.yaml"/>
+  <arg name="map_file"          default="$(find chris_world_models)/maps/creech_map_050.yaml"/>
+
+  <arg name="scan_topic"        default="hokuyo_node/scan"/>
+
+  <include file="$(find chris_turtlebot_navigation)/launch/fake_localization_demo.launch">
+    <arg name="robot_namespace"   value="$(arg robot_namespace)"/>
+    <arg name="custom_param_file" value="$(arg custom_param_file)"/>
+    <arg name="map_file"          value="$(arg map_file)"/>
+    <arg name="scan_topic"        value="$(arg scan_topic)"/>
+  </include>
+
+</launch>

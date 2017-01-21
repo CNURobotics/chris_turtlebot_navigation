@@ -1,0 +1,19 @@
+<!--
+         Velocity smoother
+-->
+<launch>
+  <arg name="robot_namespace"   default="turtlebot"/> <!-- robot's name used by plugin to publish topics -->
+  <arg name="base_prefix"       default="mobile_base" />
+
+  <node pkg="nodelet" type="nodelet" name="velocity_smoother_nodelet_manager" args="manager" ns="$(arg robot_namespace)" output="screen"/>
+
+  <node pkg="nodelet" type="nodelet" name="navigation_velocity_smoother"  ns="$(arg robot_namespace)" output="screen" 
+        args="load stamped_velocity_smoother/VelocitySmootherNodelet velocity_smoother_nodelet_manager">
+    <rosparam file="$(find chris_turtlebot_navigation)/param/smoother.yaml" command="load"/>
+    <remap from="navigation_velocity_smoother/smooth_cmd_vel" to="stamped_cmd_vel_mux/input/navi"/>
+
+    <!-- Robot velocity feedbacks; use the default base configuration -->
+    <remap from="navigation_velocity_smoother/odometry"      to="$(arg base_prefix)/odom"/>
+    <remap from="navigation_velocity_smoother/robot_cmd_vel" to="$(arg base_prefix)/cmd_vel"/>
+  </node>
+</launch>

@@ -1,0 +1,28 @@
+<package format="2">
+  <name>chris_turtlebot_navigation</name>
+  <version>0.0.1</version>
+  <description>Basic navigation setup using ROS Navigation stack (based on Turtlebot Navigation)</description>
+  <maintainer email="david.conner@cnu.edu">David Conner</maintainer>
+  <author>David Conner</author>
+  <license>BSD</license>
+  <url type="website">https://github.com/CNURobotics/chris_turtlebot_navigation</url>
+  <url type="repository">https://github.com/CNURobotics/chris_turtlebot_navigation</url>
+  <url type="bugtracker">https://github.com/CNURobotics/chris_turtlebot_navigation/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>tf</depend>
+  <depend>roscpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>move_base</depend>
+  <depend>map_server</depend>
+  <depend>amcl</depend>
+  <depend>gmapping</depend>
+  <depend>chris_turtlebot_bringup</depend>
+  <depend>chris_world_models</depend>
+
+  <export>
+
+  </export>
+</package>
