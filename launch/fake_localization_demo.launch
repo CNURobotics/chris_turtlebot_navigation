@@ -5,7 +5,7 @@
   <arg name="include_map_server"        default="true"/>
 
   <arg name="custom_param_file"         default="$(find chris_turtlebot_navigation)/param/dummy.yaml"/>
-  <arg name="map_file"                  default="$(optenv CHRIS_MAP_FILE)"/>
+  <arg name="map_file"                  default="$(optenv CHRIS_TURTLEBOT_MAP_FILE)"/>
 
   <arg name="scan_topic"                default="hokuyo_node/scan"/>
 

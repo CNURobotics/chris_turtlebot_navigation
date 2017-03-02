@@ -2,7 +2,7 @@
   <arg name="robot_namespace"   default="turtlebot"/> <!-- robot's name used by plugin to publish topics -->
 
   <arg name="custom_param_file" default="$(find chris_turtlebot_navigation)/param/dummy.yaml"/>
-  <arg name="map_file"          default="$(optenv CHRIS_MAP_FILE)"/>
+  <arg name="map_file"          default="$(optenv CHRIS_TURTLEBOT_MAP_FILE)"/>
   <arg name="initial_pose_x"    default="0.0"/>
   <arg name="initial_pose_y"    default="0.0"/>
   <arg name="initial_pose_a"    default="0.0"/>
