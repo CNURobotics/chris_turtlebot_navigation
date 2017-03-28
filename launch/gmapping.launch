@@ -8,6 +8,7 @@
   <arg name="odom_frame"        default="odom"/>
   <arg name="base_frame"        default="base_footprint"/>
   <arg name="map_frame"         default="map"/><!--$(arg robot_namespace)_tf/map"/-->
+  <arg name="pose_topic"        default="estimated_pose"/>
 
   <!-- make sure our tf_prefix is set in case this is launched first -->
   <group ns="$(arg robot_namespace)">
@@ -22,5 +23,8 @@
     <arg name="base_frame"       value="$(arg base_frame)"/>
     <arg name="map_frame"        value="$(arg map_frame)"/>
   </include>
+
+  <!-- to do -->
+  <!-- add a node to publish the estimated base to map pose as PoseWithCovarianceStamped topic to match AMCL and Hector SLAM pose estimate output -->
 
 </launch>
