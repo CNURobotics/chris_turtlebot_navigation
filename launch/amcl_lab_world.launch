@@ -2,6 +2,7 @@
   <arg name="robot_namespace"   default="turtlebot"/>
 
   <arg name="custom_param_file" default="$(find chris_turtlebot_navigation)/param/dummy.yaml"/>
+  <arg name="map_file"          default="$(find chris_world_models)/maps/lab_world_050.yaml"/>
   <arg name="initial_pose_x"    default="0.0"/>
   <arg name="initial_pose_y"    default="0.0"/>
   <arg name="initial_pose_a"    default="0.0"/>
@@ -10,6 +11,8 @@
   <!-- Map, localization, planning and control -->
   <include file="$(find chris_turtlebot_navigation)/launch/amcl_demo.launch">
     <arg name="robot_namespace"     value="$(arg robot_namespace)"/>
+
+    <arg name="map_file"            value="$(arg map_file)"/>
     <arg name="custom_param_file"   value="$(arg custom_param_file)"/>
     <arg name="initial_pose_x"      value="$(arg initial_pose_x)"/>
     <arg name="initial_pose_y"      value="$(arg initial_pose_y)"/>

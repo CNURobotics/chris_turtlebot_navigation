@@ -1,21 +1,25 @@
 <launch>
-  <arg name="robot_namespace"   default="turtlebot"/> <!-- robot's name used by plugin to publish topics -->
+  <arg name="robot_namespace"    default="turtlebot"/> <!-- robot's name used by plugin to publish topics -->
 
-  <arg name="custom_param_file" default="$(find chris_turtlebot_navigation)/param/dummy.yaml"/>
-  <arg name="map_file"          default="$(optenv CHRIS_TURTLEBOT_MAP_FILE)"/>
-  <arg name="initial_pose_x"    default="0.0"/>
-  <arg name="initial_pose_y"    default="0.0"/>
-  <arg name="initial_pose_a"    default="0.0"/>
-  <arg name="pose_topic"        default="estimated_pose"/>
-  <arg name="scan_topic"        default="hokuyo_node/scan"/>
-  <arg name="odom_frame_id"     default="$(arg robot_namespace)_tf/odom"/>
-  <arg name="base_frame_id"     default="$(arg robot_namespace)_tf/base_footprint"/>
-  <arg name="global_frame_id"   default="$(arg robot_namespace)_tf/map"/>
+  <arg name="custom_param_file"  default="$(find chris_turtlebot_navigation)/param/dummy.yaml"/>
+  <arg name="map_file"           default="$(optenv CHRIS_TURTLEBOT_MAP_FILE)"/>
+  <arg name="initial_pose_x"     default="0.0"/>
+  <arg name="initial_pose_y"     default="0.0"/>
+  <arg name="initial_pose_a"     default="0.0"/>
+  <arg name="pose_topic"         default="estimated_pose"/>
+  <arg name="scan_topic"         default="hokuyo_node/scan"/>
+  <arg name="odom_frame_id"      default="$(arg robot_namespace)_tf/odom"/>
+  <arg name="base_frame_id"      default="$(arg robot_namespace)_tf/base_footprint"/>
+  <arg name="global_frame_id"    default="$(arg robot_namespace)_tf/map"/>
+  <arg name="include_map_server" default="false"/>
 
   <!-- Map server -->
-  <node name="map_server" pkg="map_server" type="map_server" ns="$(arg robot_namespace)" args="$(arg map_file)" >
-    <param name="frame_id" value="$(arg robot_namespace)_tf/map"/>
-  </node>
+  <group if="$(arg include_map_server)" ns="$(arg robot_namespace)">
+    <include file="$(find chris_turtlebot_navigation)/launch/map_server.launch">
+      <arg name="robot_namespace"    value="$(arg robot_namespace)"/> <!-- robot's name used by plugin to publish topics -->
+      <arg name="global_frame_id"    value="$(arg global_frame_id)"/>
+    </include>
+  </group>
 
   <!-- Localization -->
   <include file="$(find chris_turtlebot_navigation)/launch/includes/amcl.launch.xml">

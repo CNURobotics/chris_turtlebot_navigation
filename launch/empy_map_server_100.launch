@@ -1,0 +1,11 @@
+<launch>
+  <arg name="robot_namespace"   default="turtlebot"/> <!-- robot's name used by plugin to publish topics -->
+  <arg name="map_file"          default="$(find chris_world_models)/maps/empty_100.yaml"/>
+  <arg name="global_frame_id"   default="$(arg robot_namespace)_tf/map"/>
+
+  <!-- Map server -->
+  <node name="map_server" pkg="map_server" type="map_server" ns="$(arg robot_namespace)" args="$(arg map_file)" >
+      <param name="frame_id" value="$(arg global_frame_id)"/>
+  </node>
+
+</launch>
