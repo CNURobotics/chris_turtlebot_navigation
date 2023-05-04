@@ -18,7 +18,7 @@
   <depend>move_base</depend>
   <depend>map_server</depend>
   <depend>amcl</depend>
-  <!--depend>gmapping</depend-->
+  <depend>gmapping</depend>
   <depend>chris_turtlebot_bringup</depend>
   <depend>chris_world_models</depend>
 
